@@ -1,0 +1,94 @@
+<app-header></app-header>
+<mat-tab-group headerPosition="below" [selectedIndex]="tabSelected" style="min-height: 200px;">
+    <mat-tab label="Presupuesto"> 
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-8 offset-md-2 col-sm-12">
+                    <form [formGroup]="formPresupuesto" #formDirective="ngForm" (ngSubmit)="submitPresupuesto()">
+                        <br>
+                        <mat-form-field>
+                            <mat-icon matPrefix>savings</mat-icon>
+                            <input type="number" autocomplete="false" matInput placeholder="Monto" [(ngModel)]="presupuesto.monto" formControlName="monto">
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field>
+                            <mat-icon matPrefix>paid</mat-icon>
+                            <input type="text" autocomplete="false" matInput placeholder="Divisa" [(ngModel)]="presupuesto.divisa" formControlName="divisa">
+                        </mat-form-field>
+                        <div style="display:flex; justify-content: center;">
+                            <button type="submit" mat-raised-button color="primary">Guardar</button>
+                        </div>
+                        <br>     
+                    </form>
+                </div>
+            </div>
+        </div>
+    </mat-tab>
+    <mat-tab label="Gastos totales">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-8 offset-md-2 col-sm-12">
+                    <form [formGroup]="formRegistro" #formDirective="ngForm" (ngSubmit)="submitRegistro()">
+                        <br>
+                        <mat-form-field>
+                            <mat-icon matPrefix>edit</mat-icon>
+                            <input type="text" autocomplete="false" matInput placeholder="Nombre" formControlName="nombre">
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field>
+                            <mat-icon matPrefix>category</mat-icon>
+                            <mat-label>Categoría</mat-label>
+                            <mat-select formControlName="categoria">
+                                <mat-option value="Egreso génerico">Egreso génerico</mat-option>
+                                <mat-option value="Vivienda">Vivienda</mat-option>
+                                <mat-option value="Transporte">Transporte</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field>
+                            <mat-icon matPrefix>paid</mat-icon>
+                            <input type="number" autocomplete="false" matInput placeholder="Monto" formControlName="monto">
+                        </mat-form-field>
+                        <div style="display:flex; justify-content: center;">
+                            <button type="submit" mat-raised-button color="primary">Guardar</button>
+                        </div>
+                        <br>     
+                    </form>
+                    <br>
+
+                    <table mat-table [dataSource]="registros" class="mat-elevation-z8 mb-3">
+
+                        <ng-container matColumnDef="nombre">
+                          <th mat-header-cell *matHeaderCellDef> Nombre</th>
+                          <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+                        </ng-container>
+                      
+                        <ng-container matColumnDef="categoria">
+                          <th mat-header-cell *matHeaderCellDef> Categoria </th>
+                          <td mat-cell *matCellDef="let element"> {{element.categoria}} </td>
+                        </ng-container>
+                      
+                        <ng-container matColumnDef="monto">
+                          <th mat-header-cell *matHeaderCellDef> Monto </th>
+                          <td mat-cell *matCellDef="let element"> {{element.monto | number}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="acciones">
+                            <th mat-header-cell *matHeaderCellDef> Acciones </th>
+                            <td mat-cell *matCellDef="let element"> 
+                                <button mat-raised-button color="accent"(click)="editarRegistro(element)" >Editar</button>
+                                <button mat-raised-button color="warn" (click)="borrarRegistro(element)">Borrar</button>
+                            </td>
+                        </ng-container>
+                      
+                        <tr mat-header-row *matHeaderRowDef="columnas"></tr>
+                        <tr mat-row *matRowDef="let row; columns: columnas;"></tr>
+                    </table>  
+                </div>
+            </div>
+        </div>
+        
+        
+    </mat-tab>
+    <mat-tab label="Balance"> Balance </mat-tab>
+</mat-tab-group>
