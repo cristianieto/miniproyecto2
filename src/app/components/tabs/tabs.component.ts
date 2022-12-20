@@ -17,6 +17,7 @@ export class TabsComponent implements OnInit {
   registros : Registro[] = [];
   tabSelected = 0;
   columnas: string[] = ['nombre', 'categoria', 'monto', 'acciones'];
+  colsBalance: string[] = ['Elemento', 'valor'];
 
   constructor(private dataService: RegistrosService) {
     this.formPresupuesto = new FormGroup({
@@ -46,7 +47,6 @@ export class TabsComponent implements OnInit {
   cargarRegistros(){
     this.dataService.get_registros().subscribe((all_registros) => {
       this.registros =  all_registros as Registro[];
-      console.log(this.registros, "regs");
       
     });
   }
@@ -83,5 +83,14 @@ export class TabsComponent implements OnInit {
     this.dataService.delete_registro(registro).then(() =>{
       this.cargarRegistros();
     });
+  }
+
+  calcularBalance(){
+    let suma = 0;
+    for (const i in this.registros) {
+      suma = suma + this.registros[i].monto;
+    }
+
+    return this.presupuesto.monto - suma;
   }
 }

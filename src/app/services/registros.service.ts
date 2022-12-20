@@ -10,6 +10,7 @@ import {
   query,
   setDoc,
   where,
+  docSnapshots,
 } from '@angular/fire/firestore';
 import { Presupuesto } from '../modelos/presupuesto';
 import { Registro } from '../modelos/registro';
@@ -24,6 +25,7 @@ export class RegistrosService {
 
   get_registros() {
     const docRef = collection(this.firestore, 'registros');
+
     return collectionData(docRef, { idField: 'id' });
   }
 
@@ -54,12 +56,7 @@ export class RegistrosService {
 
   update_presupuesto(presupuesto: Presupuesto) {
     const registroRef = doc(this.firestore, `presupuestos/${presupuesto.id}`);
+    
     return setDoc(registroRef, {...presupuesto });
   }
-
-  
-
-
-  
-
 }

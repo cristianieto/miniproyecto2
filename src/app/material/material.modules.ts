@@ -10,6 +10,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatTableModule } from '@angular/material/table';
 import { MatSelectModule } from '@angular/material/select';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   exports: [
@@ -23,7 +24,8 @@ import { MatSelectModule } from '@angular/material/select';
     MatDividerModule,
     MatGridListModule,
     MatTableModule,
-    MatSelectModule
+    MatSelectModule,
+    MatTooltipModule
   ],
 })
 export class MaterialModule {}
